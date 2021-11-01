@@ -1,0 +1,73 @@
+<template >
+  <el-card class="box-card">
+     <template #header>
+       <div class="card-header">
+         <span>修改Pinia页面配置</span>
+         <el-button class="button" type="text" @click="useToPinia">To Pinia</el-button>
+       </div>
+     </template>
+
+     <el-form ref="RefForm" :model="form" label-width="120px">
+       <el-form-item label="顶部高度">
+         <el-input-number v-model="form.vHeight" :min="1" :max="1000" @change="handleChange" />
+       </el-form-item>
+       <el-form-item label="顶部颜色">
+         <el-color-picker v-model="form.editDefaultColor" @active-change="useDefaultColorChange"/>
+       </el-form-item>
+       <el-form-item label="滚动颜色">
+         <el-color-picker v-model="form.editScrollColor" @active-change="useScrollColorChange"/>
+       </el-form-item>
+     </el-form>
+   </el-card>
+</template>
+
+<script setup>
+import { reactive } from 'vue'
+import { useConfigStore } from '/@/store/config'
+import { useRouter } from 'vue-router'
+const config = useConfigStore()
+
+const form = reactive({
+  vHeight: config.headerHeight,
+  editDefaultColor: config.defaultColor,
+  editScrollColor: config.scrollColor
+})
+
+const Router = useRouter()
+
+const handleChange = (value) => {
+  config.updateSystemConfig({type: 'headerHeight', value})
+}
+
+const useDefaultColorChange = (value) => {
+  config.updateSystemConfig({type: 'defaultColor', value})
+}
+const useScrollColorChange = (value) => {
+  config.updateSystemConfig({type: 'scrollColor', value})
+}
+
+const useToPinia = () => {
+  Router.push('Pinia')
+}
+</script>
+
+<style lang="scss">
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text {
+  font-size: 14px;
+}
+
+.item {
+  margin-bottom: 18px;
+}
+
+.box-card {
+  width: 480px;
+  margin: 20px auto;
+}
+</style>

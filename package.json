@@ -9,7 +9,9 @@
   "dependencies": {
     "@element-plus/icons": "^0.0.11",
     "element-plus": "^1.1.0-beta.24",
-    "vue": "^3.2.16"
+    "pinia": "^2.0.0-rc.14",
+    "vue": "^3.2.16",
+    "vue-router": "4"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.9.3",
