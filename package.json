@@ -1,6 +1,6 @@
 {
-  "name": "viteElementplus",
-  "homepage": "https://eug620.github.io/viteElementplus/",
+  "name": "vite-elementplus",
+  "homepage": "https://eug620.github.io/vite-elementplus/",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
