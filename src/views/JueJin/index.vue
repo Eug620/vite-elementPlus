@@ -104,7 +104,7 @@ const LayoutWidth = computed(() => JueJinStore.getLayoutWidth + 'px')
 const ArticleTypes = computed(() => JueJinStore.getArticleType)
 const ClassificationOptions = computed(() => JueJinStore.getClassificationOptions)
 const activeType = ref('hot')
-const activeClassification = ref(ClassificationOptions[0] || '')
+const activeClassification = ref(ClassificationOptions.value[0] || '')
 
 const useChangeActiveType = (v) => {activeType.value = v}
 const useChangeActiveClassification = (v) => {activeClassification.value = v}
