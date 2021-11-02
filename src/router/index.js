@@ -18,6 +18,12 @@ const routes = [
         name: 'Pinia',
         meta: { keepAlive: true },
         component: () => import('/@/views/Pinia/index.vue')
+      },
+      {
+        path: 'JueJin',
+        name: 'JueJin',
+        meta: { keepAlive: true },
+        component: () => import('/@/views/JueJin/index.vue')
       }
     ]
   },
