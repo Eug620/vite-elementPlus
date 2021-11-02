@@ -53,71 +53,123 @@ const useToHome = () => {
 </script>
 
 <template>
-  <div class="content">
-    <div class="header-box" >
-      <div class="wtf" :class="{'is-hidden': isShow}">
-        <div class="header-box-red">
-          <el-button round @click="useToHome">To Home</el-button>
-          red - {{tops}}%
+  <div class="pinia-content">
+    <div class="pinia-content-header-box" :class="{'is-box-shadow': isShow}">
+      <div class="pinia-content-header-content" :class="{'is-hidden': isShow}">
+        <div class="pinia-content-header-box-red">
+          <el-row :gutter="20">
+            <el-col :span="6">
+              <el-button round @click="useToHome">To Home</el-button>
+            </el-col>
+            <el-col :span="6">
+              red
+            </el-col>
+            <el-col :span="6">
+              {{tops}}%
+            </el-col>
+            <el-col :span="6">
+              <el-progress :percentage="tops" />
+            </el-col>
+          </el-row>
         </div>
-        <div class="header-box-green">
-          <el-button round @click="useToHome">To Home</el-button>
-          greed - {{tops}}%
+        <div class="pinia-content-header-box-green">
+          <el-row :gutter="20">
+            <el-col :span="6">
+              <el-button round @click="useToHome">To Home</el-button>
+            </el-col>
+            <el-col :span="6">
+              green
+            </el-col>
+            <el-col :span="6">
+              {{tops}}%
+            </el-col>
+            <el-col :span="6">
+              <el-progress :percentage="tops" />
+            </el-col>
+          </el-row>
         </div>
       </div>
 
     </div>
-    <div class="box" v-for="item in 10" :key="item">
-      123
+    <div class="pinia-content-section">
+      <el-row :gutter="20">
+        <el-col :span="6">
+        1
+        </el-col>
+        <el-col :span="12">
+          <el-space direction="vertical"  style="width: 100%;" fill>
+            <el-card v-for="i in 10" :key="i">
+              <template #header>
+                <div class="card-header">
+                  <span>Card name</span>
+                  <el-button class="button" type="text">Operation button</el-button>
+                </div>
+              </template>
+              <div v-for="o in 4" :key="o" class="text item">
+                {{ 'List item ' + o }}
+              </div>
+            </el-card>
+          </el-space>
+        </el-col>
+        <el-col :span="6">
+          2
+        </el-col>
+      </el-row>
+
+
     </div>
+    <el-backtop />
 
   </div>
 
 </template>
 
 <style lang="scss" >
-  .content{
+
+  .pinia-content{
     padding-top: v-bind(domHeight);
-  }
-  .is-hidden{
-    transform: translate(0, v-bind(transtionTop));
-  }
-  .wtf{
-    height: 100%;
-    transition: .3s all linear;
 
-  }
-  .box{
-    height:300px;
-    border: 1px solid #000;
-
-  }
-  .box:first-of-type {
-    background-color:yellow;
-    margin-top:v-bind(domHeight);
-  }
-
-  .header-box {
-    height:v-bind(domHeight);
-    position: fixed;
-    width: 100%;
-    top: 0;
-    text-align: center;
-    font-size:30px;
-    overflow: hidden;
-    color:#fff;
-
-    // background: linear-gradient(to right, #000 0%,#000 100%);
-
-
-    &-red{
-      height:100%;
-      background-color: v-bind(_defaultColor);
+    .is-box-shadow{
+      box-shadow: 0 5px 10px #ccc;
     }
-    &-green {
-      height:100%;
-      background-color: v-bind(_scrollColor);
+
+    &-header-box {
+      height:v-bind(domHeight);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      text-align: center;
+      font-size:30px;
+      overflow: hidden;
+      transition: .3s all linear;
+      z-index:20;
+
+      &-red{
+        height:100%;
+        background-color: v-bind(_defaultColor);
+      }
+      &-green {
+        height:100%;
+        background-color: v-bind(_scrollColor);
+      }
+
+      .is-hidden{
+        transform: translate(0, v-bind(transtionTop));
+      }
+    }
+
+    &-header-content {
+      height: 100%;
+      transition: .3s all linear;
+    }
+
+
+    &-section {
+      &-box{
+        height:300px;
+        border: 1px solid #000;
+
+      }
     }
   }
-
 </style>

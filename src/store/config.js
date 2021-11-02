@@ -4,8 +4,8 @@ export const useConfigStore = defineStore({
   id: 'SystemConfig',
   state: () => ({
     headerHeight: 100,
-    defaultColor: '#ccc',
-    scrollColor: '#000'
+    defaultColor: '#fff',
+    scrollColor: '#fff'
   }),
   getters: {
     getHeaderHeight() {
