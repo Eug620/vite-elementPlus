@@ -4,6 +4,7 @@ export const useJueJinStore = defineStore({
   id: 'JueJinStore',
   state: () => ({
     navigationHeight: 60,
+    navigationOptions: ['首页', '沸点', '资讯', '小册', '活动', '开发者大会'],
     classificationHeight: 45,
     classificationOptions:['推荐', '关注', '后端', '前端', 'Android', 'iOS', '人工智能', '开发工具', '代码人生', '阅读'],
     layoutWidth: 960,
@@ -25,6 +26,9 @@ export const useJueJinStore = defineStore({
   getters: {
     getNavigationHeight() {
       return this.navigationHeight;
+    },
+    getNavigationOptions() {
+      return this.navigationOptions;
     },
     getClassificationHeight() {
       return this.classificationHeight;

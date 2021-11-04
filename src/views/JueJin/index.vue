@@ -2,18 +2,11 @@
   <div class="juejin-container">
     <div class="juejin-container-header" :class="{'is-show': useIsShow}">
       <div class="juejin-container-header-navigation">
-        navigation
+        <Navigation/>
       </div>
       <div class="juejin-container-header-classification">
         <div class="juejin-container-header-classification-layout">
-          <el-button
-            v-for="options in ClassificationOptions"
-            :key="options"
-            type="text"
-            class="juejin-container-header-classification-button"
-            :class="{'juejin-container-header-classification-button-active': activeClassification === options}"
-            @click="useChangeActiveClassification(options)"
-          >{{options}}</el-button>
+          <Classification/>
         </div>
       </div>
     </div>
@@ -23,23 +16,13 @@
            <el-col :span="16">
              <el-card shadow='never' class="card-list">
                 <template #header>
-                  <template v-for="(type, idx) in ArticleTypes" :key="idx">
-                    <el-button
-                      type="text"
-                      class="card-list-button"
-                      :class="{'card-list-button-active': activeType === type.type}"
-                      @click="useChangeActiveType(type.type)"
-                    >{{type.title}}</el-button>
-                    <el-divider direction="vertical" v-if="idx+1 < ArticleTypes.length"></el-divider>
-                  </template>
+                  <ActiveType/>
                 </template>
                 <TitleItem  v-for="item in 10" :key="item"/>
               </el-card>
            </el-col>
            <el-col :span="8">
-             <el-card shadow='never'>
-               good
-            </el-card>
+            <RightViews/>
            </el-col>
          </el-row>
       </div>
@@ -51,6 +34,10 @@
 import { ref, onMounted, onBeforeMount, computed } from 'vue'
 import { useJueJinStore } from '/@/store/juejin';
 import TitleItem from '/@/views/JueJin/components/TitleItem/index.vue'
+import ActiveType from '/@/views/JueJin/components/ActiveType/index.vue'
+import RightViews from '/@/views/JueJin/components/RightViews/index.vue'
+import Classification from '/@/views/JueJin/components/Classification/index.vue'
+import Navigation from '/@/views/JueJin/components/Navigation/index.vue'
 const JueJinStore = useJueJinStore()
 
 const NavigationHeight = computed(() => JueJinStore.getNavigationHeight + 'px')
@@ -59,16 +46,15 @@ const TopHeight = computed(() => JueJinStore.getTopHeight + 'px')
 const SumHeight = computed(() => JueJinStore.getTopHeight)
 
 const overScroll = ref(false)
-
 const useIsShow = computed(() => {
   return (TopOrBootom.value === 'top' && cacheTop.value > SumHeight.value) ? false :  overScroll.value
 })
 
 
 const TransformNavigationHeight = computed(() => '-' + JueJinStore.getNavigationHeight + 'px')
+const LayoutWidth = computed(() => JueJinStore.getLayoutWidth + 'px')
 
 const cacheTop = ref(0)
-
 const TopOrBootom = ref('bootom')
 
 // scroll event
@@ -100,15 +86,8 @@ onBeforeMount(() => {
 })
 
 
-const LayoutWidth = computed(() => JueJinStore.getLayoutWidth + 'px')
-const ArticleTypes = computed(() => JueJinStore.getArticleType)
-const ClassificationOptions = computed(() => JueJinStore.getClassificationOptions)
-const activeType = ref('hot')
-const activeClassification = ref(ClassificationOptions.value[0] || '')
-
-const useChangeActiveType = (v) => {activeType.value = v}
-const useChangeActiveClassification = (v) => {activeClassification.value = v}
-
+// 按钮字体加粗
+const ButtonFontWeight = ref(400)
 
 </script>
 
@@ -138,6 +117,41 @@ const useChangeActiveClassification = (v) => {activeClassification.value = v}
       box-sizing: border-box;
       border-bottom: 1px solid #f1f1f1;
 
+      &-layout{
+        width: v-bind(LayoutWidth);
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        height: 100%;
+      }
+
+      &-end{
+        margin-right: 30px;
+        .el-badge__content {
+          top: 10px;
+          background-color: #fff;
+          color: #007fff;
+        }
+      }
+
+      &-button {
+        color: #909090;
+        font-weight: v-bind(ButtonFontWeight);
+        font-size: 16px;
+        padding: 0 10px;
+
+        &:first-of-type {
+          margin-left: 20px;
+        }
+
+        &:hover {
+          color: #007fff;
+        }
+
+        &-active {
+          color: #007fff;
+        }
+      }
     }
     &-classification{
       height: v-bind(ClassificationHeight);
@@ -150,6 +164,7 @@ const useChangeActiveClassification = (v) => {activeClassification.value = v}
 
       &-button {
         color: #909090;
+        font-weight: v-bind(ButtonFontWeight);
 
         &:hover {
           color: #007fff;
@@ -179,6 +194,7 @@ const useChangeActiveClassification = (v) => {activeClassification.value = v}
         }
         &-button{
           color: #909090;
+          font-weight: v-bind(ButtonFontWeight);
 
           &:hover {
             color: #007fff;

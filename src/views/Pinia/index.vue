@@ -25,7 +25,7 @@ const useScrollChange = () => {
   const windowsScrollTop = window.pageYOffset;
   const scrollHeight = document.body.scrollHeight
   const clientHeight = document.documentElement.clientHeight
-  tops.value = (windowsScrollTop/(scrollHeight-clientHeight) * 100).toFixed(0)
+  tops.value = parseInt(windowsScrollTop/(scrollHeight-clientHeight) * 100)
   if (windowsScrollTop > defaultHeaderHeight.value) {
     isShow.value = true
   } else {
