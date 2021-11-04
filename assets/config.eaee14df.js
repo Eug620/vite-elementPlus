@@ -1,0 +1,1 @@
+import{n as o}from"./vendor.8be0fee2.js";const s=o({id:"SystemConfig",state:()=>({headerHeight:100,defaultColor:"#fff",scrollColor:"#fff"}),getters:{getHeaderHeight(){return this.headerHeight},getDefaultColor(){return this.defaultColor},getScrollColor(){return this.scrollColor}},actions:{updateSystemConfig({type:e,value:t}){this[e]=t}}});export{s as u};
