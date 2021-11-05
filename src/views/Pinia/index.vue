@@ -2,6 +2,7 @@
 import { ref, onMounted, onBeforeMount, computed } from 'vue'
 import { useConfigStore } from '/@/store/config'
 import { useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia'
 
 // state
 const isShow = ref(false)
@@ -11,14 +12,13 @@ const tops = ref(0)
 const config = useConfigStore()
 const Router = useRouter()
 
-// style computed
-const defaultHeaderHeight = computed(() => config.getHeaderHeight)
-const domHeight = computed(()=>config.getHeaderHeight + 'px')
-const transtionTop = computed(()=>'-' + config.getHeaderHeight + 'px')
-
-// color
-const _defaultColor = computed(() => config.defaultColor)
-const _scrollColor = computed(() => config.scrollColor)
+const {
+  headerHeight,
+  defaultColor,
+  scrollColor,
+  getHeaderHeight,
+  getTranstionTop
+} = storeToRefs(config)
 
 // scroll event
 const useScrollChange = () => {
@@ -26,7 +26,7 @@ const useScrollChange = () => {
   const scrollHeight = document.body.scrollHeight
   const clientHeight = document.documentElement.clientHeight
   tops.value = parseInt(windowsScrollTop/(scrollHeight-clientHeight) * 100)
-  if (windowsScrollTop > defaultHeaderHeight.value) {
+  if (windowsScrollTop > headerHeight.value) {
     isShow.value = true
   } else {
     isShow.value = false
@@ -48,8 +48,6 @@ onBeforeMount(() => {
 const useToHome = () => {
   Router.push('Home')
 }
-
-
 </script>
 
 <template>
@@ -127,14 +125,14 @@ const useToHome = () => {
 <style lang="scss" >
 
   .pinia-content{
-    padding-top: v-bind(domHeight);
+    padding-top: v-bind(getHeaderHeight);
 
     .is-box-shadow{
       box-shadow: 0 5px 10px #ccc;
     }
 
     &-header-box {
-      height:v-bind(domHeight);
+      height:v-bind(getHeaderHeight);
       position: fixed;
       width: 100%;
       top: 0;
@@ -146,15 +144,15 @@ const useToHome = () => {
 
       &-red{
         height:100%;
-        background-color: v-bind(_defaultColor);
+        background-color: v-bind(defaultColor);
       }
       &-green {
         height:100%;
-        background-color: v-bind(_scrollColor);
+        background-color: v-bind(scrollColor);
       }
 
       .is-hidden{
-        transform: translate(0, v-bind(transtionTop));
+        transform: translate(0, v-bind(getTranstionTop));
       }
     }
 

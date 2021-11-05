@@ -24,6 +24,12 @@ const routes = [
         name: 'JueJin',
         meta: { keepAlive: true },
         component: () => import('/@/views/JueJin/index.vue')
+      },
+      {
+        path: 'Test',
+        name: 'Test',
+        meta: { keepAlive: true },
+        component: () => import('/@/views/Test/index.vue')
       }
     ]
   },

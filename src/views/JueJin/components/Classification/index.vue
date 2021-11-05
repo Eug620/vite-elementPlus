@@ -1,6 +1,6 @@
 <template>
   <el-button
-    v-for="options in ClassificationOptions"
+    v-for="options in classificationOptions"
     :key="options"
     type="text"
     class="juejin-container-header-classification-button"
@@ -11,12 +11,13 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useJueJinStore } from '/@/store/juejin';
 
 const JueJinStore = useJueJinStore()
+const { classificationOptions } = storeToRefs(JueJinStore)
 
-const ClassificationOptions = computed(() => JueJinStore.getClassificationOptions)
-const activeClassification = ref(ClassificationOptions.value[0] || '')
+const activeClassification = ref(classificationOptions.value[0] || '')
 const useChangeActiveClassification = (v) => {activeClassification.value = v}
 
 </script>

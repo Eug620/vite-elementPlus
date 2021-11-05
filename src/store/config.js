@@ -9,13 +9,10 @@ export const useConfigStore = defineStore({
   }),
   getters: {
     getHeaderHeight() {
-      return this.headerHeight;
+      return this.headerHeight + 'px';
     },
-    getDefaultColor() {
-      return this.defaultColor;
-    },
-    getScrollColor() {
-      return this.scrollColor;
+    getTranstionTop() {
+      return '-' + this.headerHeight + 'px';
     }
   },
   actions: {

@@ -4,8 +4,8 @@
       class="JueJinLogo"
       src="https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/7abc2b532f725d394feaf0141547ade7.svg"
     ></el-image>
-    <template v-for="(Navigation, idx) in NavigationOptions">
-      <template v-if="idx !== NavigationOptions.length - 1">
+    <template v-for="(Navigation, idx) in navigationOptions">
+      <template v-if="idx !== navigationOptions.length - 1">
         <el-button
           :key="Navigation"
           type="text"
@@ -54,17 +54,18 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useJueJinStore } from '/@/store/juejin';
 import { useRouter } from 'vue-router'
 import { Search } from '@element-plus/icons'
 const JueJinStore = useJueJinStore()
+const { navigationOptions } = storeToRefs(JueJinStore)
 const Router = useRouter()
 const useToHome = () => {
   Router.push('Home')
 }
 
-const NavigationOptions = computed(() => JueJinStore.getNavigationOptions)
-const activeNavigation = ref(NavigationOptions.value[0] || '')
+const activeNavigation = ref(navigationOptions.value[0] || '')
 const useChangeActiveNavigation = (v) => {activeNavigation.value = v}
 
 // is show right button

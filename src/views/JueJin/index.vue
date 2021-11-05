@@ -32,6 +32,7 @@
 
 <script setup>
 import { ref, onMounted, onBeforeMount, computed } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useJueJinStore } from '/@/store/juejin';
 import TitleItem from '/@/views/JueJin/components/TitleItem/index.vue'
 import ActiveType from '/@/views/JueJin/components/ActiveType/index.vue'
@@ -40,19 +41,20 @@ import Classification from '/@/views/JueJin/components/Classification/index.vue'
 import Navigation from '/@/views/JueJin/components/Navigation/index.vue'
 const JueJinStore = useJueJinStore()
 
-const NavigationHeight = computed(() => JueJinStore.getNavigationHeight + 'px')
-const ClassificationHeight = computed(() => JueJinStore.classificationHeight + 'px')
-const TopHeight = computed(() => JueJinStore.getTopHeight + 'px')
-const SumHeight = computed(() => JueJinStore.getTopHeight)
+const {
+  getNavigationHeight,
+  getClassificationHeight,
+  getTopHeightSum,
+  getTopHeight,
+  getTransformNavigationHeight,
+  getLayoutWidth
+} = storeToRefs(JueJinStore)
 
 const overScroll = ref(false)
 const useIsShow = computed(() => {
-  return (TopOrBootom.value === 'top' && cacheTop.value > SumHeight.value) ? false :  overScroll.value
+  return (TopOrBootom.value === 'top' && cacheTop.value > getTopHeightSum.value) ? false :  overScroll.value
 })
 
-
-const TransformNavigationHeight = computed(() => '-' + JueJinStore.getNavigationHeight + 'px')
-const LayoutWidth = computed(() => JueJinStore.getLayoutWidth + 'px')
 
 const cacheTop = ref(0)
 const TopOrBootom = ref('bootom')
@@ -60,7 +62,7 @@ const TopOrBootom = ref('bootom')
 // scroll event
 const useScrollChange = () => {
   const windowsScrollTop = window.pageYOffset;
-  if (windowsScrollTop > SumHeight.value) {
+  if (windowsScrollTop > getTopHeightSum.value) {
     overScroll.value = true
   } else {
     overScroll.value = false
@@ -93,11 +95,11 @@ const ButtonFontWeight = ref(400)
 
 <style lang="scss">
 .juejin-container{
-  padding-top: v-bind(TopHeight);
+  padding-top: v-bind(getTopHeight);
   background-color:#f4f5f5;
 
   .is-show {
-    transform: translate(0, v-bind(TransformNavigationHeight));
+    transform: translate(0, v-bind(getTransformNavigationHeight));
   }
 
   &-header{
@@ -105,7 +107,7 @@ const ButtonFontWeight = ref(400)
     z-index: 9;
     top: 0;
     width: 100%;
-    height: v-bind(TopHeight);
+    height: v-bind(getTopHeight);
     background-color: #fff;
     transition: .3s all linear;
     box-shadow: 0 1px 2px 0 rgb(0 0 0 / 5%);
@@ -113,12 +115,12 @@ const ButtonFontWeight = ref(400)
 
 
     &-navigation{
-      height: v-bind(NavigationHeight);
+      height: v-bind(getNavigationHeight);
       box-sizing: border-box;
       border-bottom: 1px solid #f1f1f1;
 
       &-layout{
-        width: v-bind(LayoutWidth);
+        width: v-bind(getLayoutWidth);
         margin: 0 auto;
         display: flex;
         align-items: center;
@@ -154,11 +156,11 @@ const ButtonFontWeight = ref(400)
       }
     }
     &-classification{
-      height: v-bind(ClassificationHeight);
+      height: v-bind(getClassificationHeight);
       box-sizing: border-box;
 
       &-layout{
-        width: v-bind(LayoutWidth);
+        width: v-bind(getLayoutWidth);
         margin: 0 auto;
       }
 
@@ -181,7 +183,7 @@ const ButtonFontWeight = ref(400)
     padding: 10px;
 
     &-layout{
-      width: v-bind(LayoutWidth);
+      width: v-bind(getLayoutWidth);
       margin: 0 auto;
 
       .card-list {

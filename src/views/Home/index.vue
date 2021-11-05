@@ -47,31 +47,43 @@
 
 <script setup>
 import { reactive } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useConfigStore } from '/@/store/config'
 import { useJueJinStore } from '/@/store/juejin'
 import { useRouter } from 'vue-router'
+const Router = useRouter()
 const config = useConfigStore()
 const JueJinStore = useJueJinStore()
 
+const {
+  headerHeight,
+  defaultColor,
+  scrollColor
+} = storeToRefs(config)
+
+const {
+  navigationHeight,
+  classificationHeight,
+  layoutWidth
+} = storeToRefs(JueJinStore)
+
 const form = reactive({
-  vHeight: config.headerHeight,
-  editDefaultColor: config.defaultColor,
-  editScrollColor: config.scrollColor
+  vHeight: headerHeight.value,
+  editDefaultColor: defaultColor.value,
+  editScrollColor: scrollColor.value
 })
 
-const Router = useRouter()
+
 
 const handleChange = (value) => {
   config.updateSystemConfig({type: 'headerHeight', value})
 }
-
 const useDefaultColorChange = (value) => {
   config.updateSystemConfig({type: 'defaultColor', value})
 }
 const useScrollColorChange = (value) => {
   config.updateSystemConfig({type: 'scrollColor', value})
 }
-
 const useToPinia = () => {
   Router.push('Pinia')
 }
@@ -80,9 +92,9 @@ const useToPinia = () => {
 
 
 const JueJinForm = reactive({
-  navigationHeight: JueJinStore.navigationHeight,
-  classificationHeight: JueJinStore.classificationHeight,
-  layoutWidth: JueJinStore.layoutWidth
+  navigationHeight: navigationHeight.value,
+  classificationHeight: classificationHeight.value,
+  layoutWidth: layoutWidth.value
 })
 const handleNavigationHeightChange = (value) => {
   JueJinStore.updateJueJinStore({type: 'navigationHeight', value})

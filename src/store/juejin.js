@@ -25,25 +25,22 @@ export const useJueJinStore = defineStore({
   }),
   getters: {
     getNavigationHeight() {
-      return this.navigationHeight;
+      return this.navigationHeight + 'px';
     },
-    getNavigationOptions() {
-      return this.navigationOptions;
+    getTransformNavigationHeight() {
+      return '-' + this.navigationHeight + 'px';
     },
     getClassificationHeight() {
-      return this.classificationHeight;
+      return this.classificationHeight + 'px';
     },
-    getClassificationOptions() {
-      return this.classificationOptions;
-    },
-    getTopHeight() {
+    getTopHeightSum() {
       return this.navigationHeight + this.classificationHeight;
     },
-    getLayoutWidth() {
-      return this.layoutWidth;
+    getTopHeight() {
+      return this.navigationHeight + this.classificationHeight + 'px';
     },
-    getArticleType() {
-      return this.articleTypes;
+    getLayoutWidth() {
+      return this.layoutWidth + 'px';
     }
   },
   actions: {
