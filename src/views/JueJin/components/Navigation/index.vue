@@ -4,7 +4,6 @@
       class="JueJinLogo"
       src="https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/7abc2b532f725d394feaf0141547ade7.svg"
     ></el-image>
-
     <template v-for="(Navigation, idx) in NavigationOptions">
       <template v-if="idx !== NavigationOptions.length - 1">
         <el-button
@@ -17,9 +16,8 @@
       </template>
 
       <template v-else>
-        <el-badge value="2021" class="juejin-container-header-navigation-end">
+        <el-badge value="2021" class="juejin-container-header-navigation-end" :key="Navigation">
           <el-button
-            :key="Navigation"
             type="text"
             class="juejin-container-header-navigation-button"
             :class="{'juejin-container-header-navigation-button-active': activeNavigation === Navigation}"
@@ -61,7 +59,6 @@ import { useRouter } from 'vue-router'
 import { Search } from '@element-plus/icons'
 const JueJinStore = useJueJinStore()
 const Router = useRouter()
-
 const useToHome = () => {
   Router.push('Home')
 }
