@@ -27,28 +27,32 @@
       </template>
     </template>
 
-     <el-input
-       class="navigation-search"
-       v-model="searchInput"
-       size="small"
-       :placeholder="searchInputPlaceholder"
-       @focus="useSearchFocus"
-       @blur="useSearchBlur"
+    <el-input
+      class="navigation-search"
+      v-model="searchInput"
+      size="small"
+      :placeholder="searchInputPlaceholder"
+      @focus="useSearchFocus"
+      @blur="useSearchBlur"
       >
       <template #suffix>
-         <el-icon class="el-input__icon"><Search /></el-icon>
-       </template>
-     </el-input>
-
-    <el-button v-if="isShowButton" size="small" class="navigation-right-button creator-center">创作者中心</el-button>
-    <el-dropdown v-if="isShowButton" trigger="click" split-button type="primary" size="small" class="navigation-write-an-article">
-      写文章
-      <template #dropdown>
-        <el-dropdown-menu>
-          <el-dropdown-item>发布沸点</el-dropdown-item>
-        </el-dropdown-menu>
+        <el-icon class="el-input__icon"><Search /></el-icon>
       </template>
-    </el-dropdown>
+    </el-input>
+
+    <transition name="el-zoom-in-center">
+      <el-button v-show="isShowButton" size="small" class="navigation-right-button creator-center">创作者中心</el-button>
+    </transition>
+    <transition name="el-zoom-in-center">
+      <el-dropdown v-show="isShowButton"  trigger="click" split-button type="primary" size="small" class="navigation-write-an-article">
+        写文章
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item>发布沸点</el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+    </transition>
   </div>
 </template>
 
@@ -109,6 +113,6 @@ const useSearchBlur = () => {
   font-size: 14px;
 }
 .navigation-write-an-article{
-  width: 370px;
+  width: 410px;
 }
 </style>
