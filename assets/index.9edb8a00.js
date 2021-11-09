@@ -1,1 +1,1 @@
-import{_ as e}from"./index.d8cac743.js";import{o as r,j as c}from"./vendor.9b2d886f.js";const n={};function o(t,a){return r(),c("div",null," 404 ")}var _=e(n,[["render",o]]);export{_ as default};
+import{_ as r}from"./index.d8cac743.js";import{o,j as a}from"./vendor.9b2d886f.js";var d=r({},[["render",function(r,d){return o(),a("div",null," 404 ")}]]);export{d as default};
