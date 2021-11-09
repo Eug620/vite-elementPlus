@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@element-plus/icons": "^0.0.11",
+    "echarts": "^5.2.2",
     "element-plus": "^1.2.0-beta.2",
     "pinia": "^2.0.0-rc.14",
     "vue": "^3.2.16",
