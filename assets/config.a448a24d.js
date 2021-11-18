@@ -1,1 +1,0 @@
-import{q as e}from"./vendor.0b6087d8.js";const t=e({id:"SystemConfig",state:()=>({headerHeight:100,defaultColor:"#fff",scrollColor:"#fff"}),getters:{getHeaderHeight(){return this.headerHeight+"px"},getTranstionTop(){return"-"+this.headerHeight+"px"}},actions:{updateSystemConfig({type:e,value:t}){this[e]=t}}});export{t as u};
