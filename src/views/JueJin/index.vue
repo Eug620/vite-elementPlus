@@ -18,7 +18,7 @@
                 <template #header>
                   <ActiveType/>
                 </template>
-                <TitleItem  v-for="item in 10" :key="item"/>
+                <TitleItem  :ArticleList="ArticleList"/>
               </el-card>
            </el-col>
            <el-col :span="8">
@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeMount, computed } from 'vue'
+import { ref, onMounted, onBeforeMount, computed, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useJueJinStore } from '/@/store/juejin';
 import TitleItem from '/@/views/JueJin/components/TitleItem/index.vue'
@@ -39,6 +39,7 @@ import ActiveType from '/@/views/JueJin/components/ActiveType/index.vue'
 import RightViews from '/@/views/JueJin/components/RightViews/index.vue'
 import Classification from '/@/views/JueJin/components/Classification/index.vue'
 import Navigation from '/@/views/JueJin/components/Navigation/index.vue'
+import { article } from './data/index.js'
 const JueJinStore = useJueJinStore()
 
 const {
@@ -58,10 +59,22 @@ const useIsShow = computed(() => {
 
 const cacheTop = ref(0)
 const TopOrBootom = ref('bootom')
+const tops = ref(0)
+const ArticleList = ref(article.slice(0,10))
+watch(() => tops.value, v => {
+    if (v ===100 && ArticleList.value.length!==article.length) {
+      setTimeout(() => {
+        ArticleList.value.push(...article.slice(ArticleList.value.length,ArticleList.value.length + 10))
+      },500)
+    }
+})
 
 // scroll event
 const useScrollChange = () => {
   const windowsScrollTop = window.pageYOffset;
+  const scrollHeight = document.body.scrollHeight
+  const clientHeight = document.documentElement.clientHeight
+  tops.value = parseInt(windowsScrollTop/(scrollHeight-clientHeight) * 100)
   if (windowsScrollTop > getTopHeightSum.value) {
     overScroll.value = true
   } else {

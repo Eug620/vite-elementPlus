@@ -1,27 +1,36 @@
 <template >
-  <div class="Title-Item">
-    <p>
-      掘金酱
-      <el-divider direction="vertical"></el-divider>
-      50分钟前
-      <el-divider direction="vertical"></el-divider>
-      前端 · 后端
-    </p>
-    <div class="Title-Item-title">稀土掘金—福利兑换商城上新啦！</div>
-    <div class="Title-Item-description">补签卡，Pico VR一体机，Switch游戏机，华为手表，机械键盘，掘金周边等超多福利等你来拿～ 还在等什么，赶快行动吧！</div>
-    <div class="Title-Item-icons">
-      <el-icon>
-        <View />
-      </el-icon>
-      <el-icon>
-        <chat-round />
-      </el-icon>
-      评论
+  <div class="Title-container">
+    <div class="Title-Item" v-for="Article in ArticleList" :key="Article.user">
+      <p>
+        {{ Article.user }}
+        <el-divider direction="vertical"></el-divider>
+        {{ Article.date }}
+        <el-divider direction="vertical"></el-divider>
+        {{ Article.tag_list.join(' · ') }}
+      </p>
+      <div class="Title-Item-title">{{ Article.title }}</div>
+      <div class="Title-Item-description">{{ Article.description }}</div>
+      <div class="Title-Item-icons">
+        <el-icon>
+          <View />
+        </el-icon>
+        <el-icon>
+          <chat-round />
+        </el-icon>
+        评论
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { defineProps } from 'vue'
+const props = defineProps({
+  ArticleList: {
+    type: Array,
+    default: []
+  }
+})
 
 </script>
 
